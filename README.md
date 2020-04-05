@@ -1,5 +1,7 @@
 # Cookpod
 
+![Elixir CI](https://github.com/shilin/cookpod/workflows/Elixir%20CI/badge.svg?branch=ci)
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
