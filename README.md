@@ -1,6 +1,7 @@
 # Cookpod
 
 ![Elixir CI](https://github.com/shilin/cookpod/workflows/Elixir%20CI/badge.svg?branch=ci)
+![codebeat](https://codebeat.co/projects/github-com-shilin-cookpod-ci)
 
 To start your Phoenix server:
 
