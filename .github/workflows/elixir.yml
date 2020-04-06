@@ -48,7 +48,7 @@ jobs:
           mix format --check-formatted
           mix test
           mix coveralls.github
-          bash <(curl -s https://codecov.io/bash) -t $GITHUB_TOKEN
+          bash <(curl -s https://codecov.io/bash) -t d9c33546-8a8f-4971-80ea-f3cb4fa55541
         env:
           MIX_ENV: test
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
