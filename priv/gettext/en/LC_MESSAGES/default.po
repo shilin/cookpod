@@ -15,3 +15,8 @@ msgstr ""
 #: lib/cookpod_web/templates/page/index.html.eex:2
 msgid "Welcome to %{name}!"
 msgstr ""
+
+#, elixir-format
+#: lib/cookpod_web/templates/page/terms.html.slim:1
+msgid "Terms and conditions"
+msgstr ""
