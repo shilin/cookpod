@@ -12,6 +12,8 @@ defmodule Cookpod.MixProject do
       aliases: aliases(),
       deps: deps(),
       elixirc_options: [warnings_as_errors: true],
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [coveralls: :test]
     ]
   end
 
@@ -43,7 +45,8 @@ defmodule Cookpod.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:excoveralls, "~> 0.10", only: :test}
     ]
   end
 
