@@ -1,5 +1,6 @@
 defmodule CookpodWeb.Router do
   use CookpodWeb, :router
+  use Plug.ErrorHandler
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -28,6 +29,15 @@ defmodule CookpodWeb.Router do
   scope "/", CookpodWeb do
     pipe_through [:protected]
     get "/terms", PageController, :terms
+  end
+
+  def handle_errors(conn, %{kind: :error, reason: %Phoenix.Router.NoRouteError{}}) do
+    conn
+    |> fetch_session()
+    |> fetch_flash()
+    |> put_layout({CookpodWeb.LayoutView, :app})
+    |> put_view(CookpodWeb.ErrorView)
+    |> render("404.html")
   end
 
   # Other scopes may use custom stacks.
