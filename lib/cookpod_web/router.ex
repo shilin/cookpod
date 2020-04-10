@@ -9,6 +9,11 @@ defmodule CookpodWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :protected do
+    plug :browser
+    plug CookpodWeb.AuthPlug
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -17,6 +22,11 @@ defmodule CookpodWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    resources "/sessions", SessionController, singleton: true
+  end
+
+  scope "/", CookpodWeb do
+    pipe_through [:protected]
     get "/terms", PageController, :terms
   end
 
