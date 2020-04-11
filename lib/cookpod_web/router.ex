@@ -8,6 +8,7 @@ defmodule CookpodWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :set_current_user
   end
 
   pipeline :protected do
@@ -29,6 +30,11 @@ defmodule CookpodWeb.Router do
   scope "/", CookpodWeb do
     pipe_through [:protected]
     get "/terms", PageController, :terms
+  end
+
+  defp set_current_user(conn, _params) do
+    current_user = get_session(conn, :current_user)
+    assign(conn, :current_user, current_user)
   end
 
   def handle_errors(conn, %{kind: :error, reason: %Phoenix.Router.NoRouteError{}}) do

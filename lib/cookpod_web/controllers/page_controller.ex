@@ -3,7 +3,7 @@ defmodule CookpodWeb.PageController do
 
   action_fallback :fallback
 
-  def index(_conn, _params) do
+  def index(conn, _params) do
     render(conn, "index.html")
   end
 
@@ -12,6 +12,6 @@ defmodule CookpodWeb.PageController do
   end
 
   defp fallback(conn, _opts) do
-   send_resp(conn, 200, "I am a func fallback")
+    send_resp(conn, 200, "I am a func fallback")
   end
 end

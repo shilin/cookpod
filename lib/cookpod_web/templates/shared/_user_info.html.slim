@@ -1,0 +1,5 @@
+.mt-4
+  .jumbotron
+    = if @current_user do
+      p = "You are logged in as #{@current_user}"
+      = button("Log me out", to: Routes.session_path(@conn, :delete), method: :delete, class: "btn btn-primary")
