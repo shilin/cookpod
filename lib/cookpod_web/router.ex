@@ -51,7 +51,6 @@ defmodule CookpodWeb.Router do
 
   def handle_errors(conn, _), do: conn
 
-
   # Other scopes may use custom stacks.
   # scope "/api", CookpodWeb do
   #   pipe_through :api
