@@ -49,7 +49,10 @@ defmodule CookpodWeb.Router do
     |> render("422.html")
   end
 
-  def handle_errors(conn, _), do: conn
+  def handle_errors(conn, _) do
+    # TODO add Rollbar here
+    conn
+  end
 
   # Other scopes may use custom stacks.
   # scope "/api", CookpodWeb do
