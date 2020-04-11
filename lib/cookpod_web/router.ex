@@ -6,7 +6,7 @@ defmodule CookpodWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
-    plug :protect_from_forgery
+    # plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
 
@@ -39,6 +39,18 @@ defmodule CookpodWeb.Router do
     |> put_view(CookpodWeb.ErrorView)
     |> render("404.html")
   end
+
+  def handle_errors(conn, %{kind: :error, reason: %Phoenix.ActionClauseError{}}) do
+    conn
+    |> fetch_session()
+    |> fetch_flash()
+    |> put_layout({CookpodWeb.LayoutView, :app})
+    |> put_view(CookpodWeb.ErrorView)
+    |> render("422.html")
+  end
+
+  def handle_errors(conn, _), do: conn
+
 
   # Other scopes may use custom stacks.
   # scope "/api", CookpodWeb do
