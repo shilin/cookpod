@@ -4,6 +4,7 @@ defmodule CookpodWeb.Router do
 
   pipeline :browser do
     plug :accepts, ["html"]
+    plug BasicAuth, use_config: {:cookpod, :basic_auth}
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
