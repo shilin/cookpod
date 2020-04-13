@@ -11,10 +11,12 @@ defmodule CookpodWeb.SessionControllerTest do
   end
 
   test "GET /sessions as logged in user", %{conn: conn} do
-    conn = conn
+    conn =
+      conn
       |> using_basic_auth(@username, @password)
       |> init_test_session(%{current_user: "test-user"})
       |> get(Routes.session_path(conn, :show))
+
     assert html_response(conn, 200) =~ "You are logged in"
   end
 
