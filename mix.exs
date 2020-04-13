@@ -13,7 +13,7 @@ defmodule Cookpod.MixProject do
       deps: deps(),
       elixirc_options: [warnings_as_errors: true],
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: ["coveralls.json": :test]
+      preferred_cli_env: [coveralls: :test]
     ]
   end
 
