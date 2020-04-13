@@ -47,13 +47,13 @@ jobs:
           mix compile --warnings-as-errors
           mix format --check-formatted
           mix test
-          mix coveralls.xml
-          head -n 100 cover/excoveralls.xml
-          bash <(curl -s https://codecov.io/bash) -f cover/excoveralls.xml -t $CODECOV_TOKEN
+          mix coveralls.json
+          head cover/excoveralls.json
+          # bash <(curl -s https://codecov.io/bash) -f cover/excoveralls.xml -t $CODECOV_TOKEN
+          bash <(curl -s https://codecov.io/bash) -f cover/excoveralls.json -t $CODECOV_TOKEN
 
         env:
           MIX_ENV: test
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
