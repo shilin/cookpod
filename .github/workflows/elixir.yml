@@ -48,7 +48,6 @@ jobs:
           mix format --check-formatted
           mix test
           mix coveralls.json
-          head cover/excoveralls.json
           bash <(curl -s https://codecov.io/bash) -f cover/excoveralls.json -t $CODECOV_TOKEN
 
         env:
