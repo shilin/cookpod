@@ -48,7 +48,8 @@ defmodule Cookpod.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:excoveralls, "~> 0.10", only: :test},
       {:phoenix_slime, "~> 0.13.1"},
-      {:basic_auth, "~> 2.2.2"}
+      {:basic_auth, "~> 2.2.2"},
+      {:argon2_elixir, "~> 2.3"}
     ]
   end
 
