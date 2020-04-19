@@ -1,5 +1,5 @@
 .mt-4
-  = form_for :user, Routes.session_path(@conn, :create), fn form ->
+  = form_for @changeset, Routes.user_path(@conn, :create), fn form ->
     .form-group.row
       = label(form, :email, "Email", class: "col-sm-1 col-form-label")
       .col-sm-4
@@ -10,5 +10,10 @@
       .col-sm-4
         = text_input(form, :password, class: form_control(form, :password), placeholder: "secret", type: "password")
         = error_tag(form, :password)
+    .form-group.row
+      = label(form, :password_confirmation, "Password Confirmation", class: "col-sm-1 col-form-label")
+      .col-sm-4
+        = text_input(form, :password_confirmation, class: form_control(form, :password_confirmation), placeholder: "secret", type: "password")
+        = error_tag(form, :password_confirmation)
     .form-group
       = submit("Submit", class: "btn btn-primary")
