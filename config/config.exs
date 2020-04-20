@@ -43,22 +43,7 @@ config :phoenix, :template_engines,
 config :phoenix_slime, :use_slim_extension, true
 
 config :arc,
-  # storage: Arc.Storage.S3
   storage: Arc.Storage.Local
-
-# bucket: "cookpod" # if using Amazon S3
-
-# config :ex_aws, :s3,
-#   access_key_id: "minio",
-#   secret_access_key: "minio111",
-#   host: "localhost",
-#   port: 9000,
-#   region: "local",
-#   scheme: "http://",
-#   bucket: "cookpod"
-
-# access_key_id: [{:system, "minio"}, :instance_role],
-# secret_access_key: [{:system, "minio111"}, :instance_role]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

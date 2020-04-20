@@ -35,10 +35,6 @@ defmodule CookpodWeb.RecipeControllerTest do
   describe "index" do
     test "lists all recipes", %{conn: conn} do
       conn = prepare(conn)
-
-      # |> init_test_session(%{current_user: %{email: "user@a.com", password: "1234"}})
-      # |> using_basic_auth(@username, @password)
-
       conn = get(conn, Routes.recipe_path(conn, :index))
 
       assert html_response(conn, 200) =~ "Listing Recipes"
