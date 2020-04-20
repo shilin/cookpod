@@ -15,9 +15,6 @@ defmodule CookpodWeb.RecipeController do
   end
 
   def create(conn, %{"recipe" => recipe_params}) do
-    # a = Recipes.create_recipe(recipe_params)
-    # # require IEx; IEx.pry
-    # case a do
     case Recipes.create_recipe(recipe_params) do
       {:ok, recipe} ->
         conn
