@@ -6,7 +6,7 @@ defmodule CookpodWeb.Api.RecipeView do
   end
 
   def render("show.json", %{recipe: recipe}) do
-    %{ one: render_one(recipe, __MODULE__, "recipe.json") }
+    %{one: render_one(recipe, __MODULE__, "recipe.json")}
   end
 
   def render("recipe.json", %{recipe: recipe}) do
@@ -16,4 +16,3 @@ defmodule CookpodWeb.Api.RecipeView do
     }
   end
 end
-
