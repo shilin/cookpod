@@ -65,7 +65,8 @@ defmodule CookpodWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", CookpodWeb do
-  #   pipe_through :api
-  # end
+  scope "/api/v2", CookpodWeb.Api, as: :api do
+    pipe_through :api
+    resources "/recipes", RecipeController
+  end
 end
