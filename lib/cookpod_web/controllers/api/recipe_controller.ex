@@ -83,13 +83,14 @@ defmodule CookpodWeb.Api.RecipeController do
     description("Show one recipe found by ID in the database")
     parameter(:id, :path, :integer, "ID", required: true, example: 123)
     produces("application/json")
+
     response(200, "SUCCESS", Schema.ref(:Recipe),
       example: %{
         data: %{
-        id: 10,
-        name: "Baked Apple",
-        description: "Put a whole apple into oven and bake it!",
-            picture: "/uploads/apple.jpg"
+          id: 10,
+          name: "Baked Apple",
+          description: "Put a whole apple into oven and bake it!",
+          picture: "/uploads/apple.jpg"
         }
       }
     )
