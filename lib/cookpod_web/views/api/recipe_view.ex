@@ -4,11 +4,11 @@ defmodule CookpodWeb.Api.RecipeView do
   alias Cookpod.Recipes.Uploaders.Picture
 
   def render("index.json", %{recipes: recipes}) do
-    %{many: render_many(recipes, __MODULE__, "recipe.json")}
+    %{data: render_many(recipes, __MODULE__, "recipe.json")}
   end
 
   def render("show.json", %{recipe: recipe}) do
-    %{one: render_one(recipe, __MODULE__, "recipe.json")}
+    %{data: render_one(recipe, __MODULE__, "recipe.json")}
   end
 
   def render("recipe.json", %{recipe: recipe}) do
