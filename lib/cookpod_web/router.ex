@@ -65,7 +65,22 @@ defmodule CookpodWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", CookpodWeb do
-  #   pipe_through :api
-  # end
+  scope "/api/v2", CookpodWeb.Api, as: :api do
+    pipe_through :api
+    resources "/recipes", RecipeController
+  end
+
+  scope "/api/swagger" do
+    forward "/", PhoenixSwagger.Plug.SwaggerUI, otp_app: :cookpod, swagger_file: "swagger.json"
+  end
+
+  def swagger_info do
+    %{
+      info: %{
+        version: "1.0",
+        title: "Cookpod"
+      },
+      basePath: "/api/v2"
+    }
+  end
 end
