@@ -32,6 +32,7 @@ defmodule CookpodWeb.RecipeControllerTest do
   end
 
   describe "create recipe" do
+    # @tag :anon
     test "redirects to show when data is valid", %{conn: conn} do
       conn = post(conn, Routes.recipe_path(conn, :create), recipe: @create_attrs)
 
