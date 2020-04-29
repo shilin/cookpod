@@ -58,7 +58,8 @@ defmodule Cookpod.MixProject do
       {:sweet_xml, "~> 0.6"},
       {:arc_ecto, "~> 0.11.3"},
       {:phoenix_swagger, "~> 0.8"},
-      {:ex_json_schema, "~> 0.5"}
+      {:ex_json_schema, "~> 0.5"},
+      {:ex_machina, "~> 2.4", only: :test}
     ]
   end
 

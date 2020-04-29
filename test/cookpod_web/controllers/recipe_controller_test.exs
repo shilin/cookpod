@@ -1,9 +1,7 @@
 defmodule CookpodWeb.RecipeControllerTest do
-  use CookpodWeb.ConnCase
+  use CookpodWeb.AuthUserCase
 
   alias Cookpod.Recipes
-
-  import Plug.Test
 
   @create_attrs %{description: "some description", name: "some name", picture: "some picture"}
   @update_attrs %{
@@ -13,20 +11,6 @@ defmodule CookpodWeb.RecipeControllerTest do
   }
   @invalid_attrs %{description: nil, name: nil, picture: nil}
 
-  @username Application.get_env(:cookpod, :basic_auth)[:username]
-  @password Application.get_env(:cookpod, :basic_auth)[:password]
-
-  defp using_basic_auth(conn, username, password) do
-    header_content = "Basic " <> Base.encode64("#{username}:#{password}")
-    put_req_header(conn, "authorization", header_content)
-  end
-
-  defp prepare(conn) do
-    conn
-    |> init_test_session(%{current_user: %{email: "user@a.com", password: "1234"}})
-    |> using_basic_auth(@username, @password)
-  end
-
   def fixture(:recipe) do
     {:ok, recipe} = Recipes.create_recipe(@create_attrs)
     recipe
@@ -34,7 +18,6 @@ defmodule CookpodWeb.RecipeControllerTest do
 
   describe "index" do
     test "lists all recipes", %{conn: conn} do
-      conn = prepare(conn)
       conn = get(conn, Routes.recipe_path(conn, :index))
 
       assert html_response(conn, 200) =~ "Listing Recipes"
@@ -43,15 +26,14 @@ defmodule CookpodWeb.RecipeControllerTest do
 
   describe "new recipe" do
     test "renders form", %{conn: conn} do
-      conn = prepare(conn)
       conn = get(conn, Routes.recipe_path(conn, :new))
       assert html_response(conn, 200) =~ "New Recipe"
     end
   end
 
   describe "create recipe" do
+    # @tag :anon
     test "redirects to show when data is valid", %{conn: conn} do
-      conn = prepare(conn)
       conn = post(conn, Routes.recipe_path(conn, :create), recipe: @create_attrs)
 
       assert %{id: id} = redirected_params(conn)
@@ -62,7 +44,6 @@ defmodule CookpodWeb.RecipeControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = prepare(conn)
       conn = post(conn, Routes.recipe_path(conn, :create), recipe: @invalid_attrs)
       assert html_response(conn, 200) =~ "New Recipe"
     end
@@ -72,7 +53,6 @@ defmodule CookpodWeb.RecipeControllerTest do
     setup [:create_recipe]
 
     test "renders form for editing chosen recipe", %{conn: conn, recipe: recipe} do
-      conn = prepare(conn)
       conn = get(conn, Routes.recipe_path(conn, :edit, recipe))
       assert html_response(conn, 200) =~ "Edit Recipe"
     end
@@ -82,7 +62,6 @@ defmodule CookpodWeb.RecipeControllerTest do
     setup [:create_recipe]
 
     test "redirects when data is valid", %{conn: conn, recipe: recipe} do
-      conn = prepare(conn)
       conn = put(conn, Routes.recipe_path(conn, :update, recipe), recipe: @update_attrs)
       assert redirected_to(conn) == Routes.recipe_path(conn, :show, recipe)
 
@@ -91,7 +70,6 @@ defmodule CookpodWeb.RecipeControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, recipe: recipe} do
-      conn = prepare(conn)
       conn = put(conn, Routes.recipe_path(conn, :update, recipe), recipe: @invalid_attrs)
       assert html_response(conn, 200) =~ "Edit Recipe"
     end
@@ -101,7 +79,6 @@ defmodule CookpodWeb.RecipeControllerTest do
     setup [:create_recipe]
 
     test "deletes chosen recipe", %{conn: conn, recipe: recipe} do
-      conn = prepare(conn)
       conn = delete(conn, Routes.recipe_path(conn, :delete, recipe))
       assert redirected_to(conn) == Routes.recipe_path(conn, :index)
 
