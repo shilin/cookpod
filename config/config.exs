@@ -50,6 +50,13 @@ config :cookpod, :phoenix_swagger,
 
 config :phoenix_swagger, jason_library: Jason
 
+config :cookpod,
+  basic_auth: [
+    username: "user",
+    password: "1111",
+    realm: "BASIC_AUTH_REALM"
+  ]
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
