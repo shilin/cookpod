@@ -23,6 +23,7 @@ defmodule CookpodWeb do
 
       import Plug.Conn
       import CookpodWeb.Gettext
+      import Phoenix.LiveView.Controller
       alias CookpodWeb.Router.Helpers, as: Routes
     end
   end
@@ -41,6 +42,7 @@ defmodule CookpodWeb do
 
       import CookpodWeb.ErrorHelpers
       import CookpodWeb.Gettext
+      import Phoenix.LiveView.Helpers
       alias CookpodWeb.Router.Helpers, as: Routes
     end
   end
@@ -50,6 +52,7 @@ defmodule CookpodWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.LiveView.Router
     end
   end
 
