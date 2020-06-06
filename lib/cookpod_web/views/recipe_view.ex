@@ -12,4 +12,15 @@ defmodule CookpodWeb.RecipeView do
   defp do_picture_url(picture, recipe) do
     Endpoint.url() <> Picture.url({picture, recipe})
   end
+
+  def recipe_calories(recipe) do
+    recipe.ingredients
+    |> Enum.map(fn i -> 0.01 * i.amount * product_calories(i.product) end)
+    |> Enum.sum()
+    |> round
+  end
+
+  defp product_calories(product) do
+    9 * product.fats + 4 * product.carbs + 4 * product.proteins
+  end
 end

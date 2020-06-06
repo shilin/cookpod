@@ -35,7 +35,14 @@ defmodule Cookpod.Recipes do
       ** (Ecto.NoResultsError)
 
   """
-  def get_recipe!(id), do: Repo.get!(Recipe, id)
+  def get_recipe!(id) do
+    Repo.get!(Recipe, id)
+  end
+
+  def get_preloaded_recipe!(id) do
+    r = Repo.get!(Recipe, id)
+    Repo.preload(r, :products)
+  end
 
   @doc """
   Creates a recipe.
