@@ -27,8 +27,8 @@ defmodule CookpodWeb.RecipeController do
   end
 
   def show(conn, %{"id" => id}) do
-    recipe = Recipes.get_recipe!(id)
-    render(conn, "show.html", recipe: recipe)
+    preloaded_recipe = Recipes.get_preloaded_recipe!(id)
+    render(conn, "show.html", recipe: preloaded_recipe)
   end
 
   def edit(conn, %{"id" => id}) do

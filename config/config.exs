@@ -35,6 +35,13 @@ config :phoenix, :template_engines,
 
 config :phoenix_slime, :use_slim_extension, true
 
+config :cookpod,
+  basic_auth: [
+    username: "user",
+    password: "1111",
+    realm: "BASIC_AUTH_REALM"
+  ]
+
 config :arc,
   storage: Arc.Storage.Local
 
