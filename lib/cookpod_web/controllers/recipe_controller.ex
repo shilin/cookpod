@@ -1,12 +1,14 @@
 defmodule CookpodWeb.RecipeController do
   use CookpodWeb, :controller
 
+  alias Cookpod.Hits
+
   alias Cookpod.Recipes
   alias Cookpod.Recipes.Recipe
 
   def index(conn, _params) do
     recipes = Recipes.list_recipes()
-    render(conn, "index.html", recipes: recipes)
+    render(conn, "index.html", recipes: recipes, hits: Hits.state())
   end
 
   def new(conn, _params) do
@@ -28,6 +30,7 @@ defmodule CookpodWeb.RecipeController do
 
   def show(conn, %{"id" => id}) do
     preloaded_recipe = Recipes.get_preloaded_recipe!(id)
+    Hits.increment(id)
     render(conn, "show.html", recipe: preloaded_recipe)
   end
 

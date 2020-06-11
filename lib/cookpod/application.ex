@@ -11,9 +11,9 @@ defmodule Cookpod.Application do
       # Start the Ecto repository
       Cookpod.Repo,
       # Start the endpoint when the application starts
-      CookpodWeb.Endpoint
+      CookpodWeb.Endpoint,
       # Starts a worker by calling: Cookpod.Worker.start_link(arg)
-      # {Cookpod.Worker, arg},
+      Cookpod.Hits
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
