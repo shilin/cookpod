@@ -1,0 +1,13 @@
+version: "3.6"
+services:
+  zk:
+    image: "wurstmeister/zookeeper"
+  kafka:
+    image: "wurstmeister/kafka"
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zk
+    environment:
+      - KAFKA_ZOOKEEPER_CONNECT=zk:2181
+      - KAFKA_ADVERTISED_HOST_NAME=localhost
