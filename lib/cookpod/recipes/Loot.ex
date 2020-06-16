@@ -59,6 +59,7 @@ defmodule Cookpod.Recipes.Loot do
         Repo.insert(data, on_conflict: :replace_all, conflict_target: :name)
       end
     end)
+
     messages
   end
 end
