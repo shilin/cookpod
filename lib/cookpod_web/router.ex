@@ -1,5 +1,7 @@
 defmodule CookpodWeb.Router do
   use CookpodWeb, :router
+  import Phoenix.LiveDashboard.Router
+
   use Plug.ErrorHandler
 
   pipeline :browser do
@@ -37,6 +39,11 @@ defmodule CookpodWeb.Router do
   scope "/", CookpodWeb do
     pipe_through [:protected]
     get "/terms", PageController, :terms
+  end
+
+  scope "/", CookpodWeb do
+    pipe_through [:protected]
+    live_dashboard("/dashboard", metrics: CookpodWeb.Telemetry)
   end
 
   defp set_current_user(conn, _params) do
