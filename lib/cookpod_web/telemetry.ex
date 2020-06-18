@@ -39,7 +39,7 @@ defmodule CookpodWeb.Telemetry do
       last_value("cookpod.repo.query.decode_time",
         unit: {:native, :millisecond},
         description: "The last value of spent decoding the data received from the database"
-      ), 
+      ),
       last_value("cookpod.repo.query.query_time",
         unit: {:native, :millisecond},
         description: "The last value of time spent executing the query"
@@ -50,7 +50,8 @@ defmodule CookpodWeb.Telemetry do
       ),
       last_value("cookpod.repo.query.idle_time",
         unit: {:native, :millisecond},
-        description: "The last value of time the connection spent waiting before being checked out for the query"
+        description:
+          "The last value of time the connection spent waiting before being checked out for the query"
       ),
 
       # VM Metrics
