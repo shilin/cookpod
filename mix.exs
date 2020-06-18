@@ -61,7 +61,12 @@ defmodule Cookpod.MixProject do
       {:ex_json_schema, "~> 0.5"},
       {:ex_machina, "~> 2.4", only: :test},
       {:quick_alias, "~> 0.1.0"},
-      {:broadway_kafka, "~> 0.1.1"}
+      {:broadway_kafka, "~> 0.1.1"},
+      {:recon, "~> 2.5"},
+      {:telemetry_poller, "~> 0.4"},
+      {:telemetry_metrics, "~> 0.4"},
+      {:telemetry_metrics_prometheus, "~> 0.5"},
+      {:phoenix_live_dashboard, "~> 0.1"}
     ]
   end
 
