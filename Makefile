@@ -1,4 +1,6 @@
 server:
+	docker-compose -f .kafka/docker-compose.yml up -d
+	docker-compose up -d
 	iex -S mix phx.server
 
 db:

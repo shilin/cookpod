@@ -8,7 +8,15 @@
 // from the params if you are not using authentication.
 import {Socket} from "phoenix"
 
-let socket = new Socket("/socket", {params: {token: window.userToken}})
+// let socket = new Socket("/socket", {params: {token: window.userToken}})
+
+import LiveSocket from "phoenix_live_view"
+
+let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}});
+
+// connect if there are any LiveViews on the page
+
 
 // When you connect, you'll often need to authenticate the client.
 // For example, imagine you have an authentication plug, `MyAuth`,
@@ -52,12 +60,27 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 //     end
 //
 // Finally, connect to the socket:
-socket.connect()
+// socket.connect()
+
+liveSocket.connect()
+
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("topic:subtopic", {})
-channel.join()
-  .receive("ok", resp => { console.log("Joined successfully", resp) })
-  .receive("error", resp => { console.log("Unable to join", resp) })
+// let channel = socket.channel("topic:subtopic", {})
+// channel.join()
+//   .receive("ok", resp => { console.log("Joined successfully", resp) })
+//   .receive("error", resp => { console.log("Unable to join", resp) })
 
-export default socket
+// channel.push("Hello", {body: "my payload from client"})
+// channel.push("ping", {foo: "baaar"})
+//   .receive("ok", resp => { console.log("ponged successfully", resp) })
+
+// channel.on("done", (msg) => {
+//   console.log("got done msg", msg);
+//   const elem = document.querySelector("#hard");
+//   elem.innerText = "DONE!"
+// });
+
+
+// export default socket
+export default liveSocket

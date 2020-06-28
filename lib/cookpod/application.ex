@@ -14,7 +14,8 @@ defmodule Cookpod.Application do
       CookpodWeb.Endpoint,
       # Starts a worker by calling: Cookpod.Worker.start_link(arg)
       Cookpod.Hits,
-      Cookpod.Recipes.Loot
+      Cookpod.Recipes.Loot,
+      CookpodWeb.Telemetry
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

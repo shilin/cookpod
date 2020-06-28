@@ -1,12 +1,15 @@
 defmodule CookpodWeb.Router do
   use CookpodWeb, :router
+  import Phoenix.LiveDashboard.Router
+
   use Plug.ErrorHandler
 
   pipeline :browser do
     plug :accepts, ["html"]
     plug BasicAuth, use_config: {:cookpod, :basic_auth}
     plug :fetch_session
-    plug :fetch_flash
+    # plug :fetch_flash
+    plug :fetch_live_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :set_current_user
@@ -36,6 +39,11 @@ defmodule CookpodWeb.Router do
   scope "/", CookpodWeb do
     pipe_through [:protected]
     get "/terms", PageController, :terms
+  end
+
+  scope "/", CookpodWeb do
+    pipe_through [:protected]
+    live_dashboard("/dashboard", metrics: CookpodWeb.Telemetry)
   end
 
   defp set_current_user(conn, _params) do
