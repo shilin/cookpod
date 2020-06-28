@@ -2,6 +2,7 @@ defmodule Cookpod.Hits do
   use GenServer
 
   def init(_init_hits) do
+    :ets.new(:recipe_hits, [:named_table])
     {:ok, %{}}
   end
 
@@ -21,7 +22,7 @@ defmodule Cookpod.Hits do
   def handle_call(msg, _from, state) do
     case msg do
       :"$hits" ->
-        {:reply, state, state}
+        {:reply, tab2map(:recipe_hits), state}
 
       _msg_body ->
         {:noreply, state}
@@ -36,14 +37,36 @@ defmodule Cookpod.Hits do
   def handle_cast(msg, state) do
     case msg do
       {:"$increment", recipe_id} ->
-        new_state = Map.update(state, recipe_id, 0, &(&1 + 1))
-        {:noreply, new_state}
+        increment_hits(recipe_id)
+        {:noreply, state}
 
       _msg_body ->
         {:noreply, state}
     end
   end
 
+  defp increment_hits(recipe_id) do
+    exists = length :ets.lookup(:recipe_hits, recipe_id)
+    if exists > 0 do
+      IO.puts("recipe already seen!")
+      [{_, current_hits}] = :ets.lookup(:recipe_hits, recipe_id)
+      IO.puts("hits before out visit: #{current_hits}")
+      :ets.insert(:recipe_hits, {recipe_id, current_hits + 1})
+      [{_, new_hits}] = :ets.lookup(:recipe_hits, recipe_id)
+      IO.puts("hits incremented to #{new_hits}")
+    else
+      IO.puts("not seen the recepie at all!")
+      :ets.insert(:recipe_hits, {recipe_id, 1})
+      IO.puts("created a hit record for the recipe in ETS")
+      [{_, current_hits}] = :ets.lookup(:recipe_hits, recipe_id)
+      IO.puts(current_hits)
+    end
+  end
+
+  defp tab2map(table) do
+    hits_list = :ets.tab2list(table)
+    Enum.into(hits_list, %{})
+  end
   # handle_info -  для обработки сообщений, которые были посланы ему просто как процессу через send
   def handle_info do
   end
