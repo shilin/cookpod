@@ -44,7 +44,6 @@ defmodule Cookpod.Hits do
     if exists > 0 do
       [{_, current_hits}] = :ets.lookup(:recipe_hits, recipe_id)
       :ets.insert(:recipe_hits, {recipe_id, current_hits + 1})
-      [{_, new_hits}] = :ets.lookup(:recipe_hits, recipe_id)
     else
       :ets.insert(:recipe_hits, {recipe_id, 1})
       [{_, current_hits}] = :ets.lookup(:recipe_hits, recipe_id)
