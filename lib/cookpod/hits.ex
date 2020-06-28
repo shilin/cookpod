@@ -2,7 +2,7 @@ defmodule Cookpod.Hits do
   use GenServer
 
   def init(_init_hits) do
-    :ets.new(:recipe_hits, [:named_table])
+    :ets.new(:recipe_hits, [:named_table, read_concurrency: true])
     {:ok, %{}}
   end
 
@@ -42,16 +42,11 @@ defmodule Cookpod.Hits do
     exists = length(:ets.lookup(:recipe_hits, recipe_id))
 
     if exists > 0 do
-      IO.puts("recipe already seen!")
       [{_, current_hits}] = :ets.lookup(:recipe_hits, recipe_id)
-      IO.puts("hits before out visit: #{current_hits}")
       :ets.insert(:recipe_hits, {recipe_id, current_hits + 1})
       [{_, new_hits}] = :ets.lookup(:recipe_hits, recipe_id)
-      IO.puts("hits incremented to #{new_hits}")
     else
-      IO.puts("not seen the recepie at all!")
       :ets.insert(:recipe_hits, {recipe_id, 1})
-      IO.puts("created a hit record for the recipe in ETS")
       [{_, current_hits}] = :ets.lookup(:recipe_hits, recipe_id)
       IO.puts(current_hits)
     end
