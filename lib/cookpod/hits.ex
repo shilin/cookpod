@@ -2,7 +2,7 @@ defmodule Cookpod.Hits do
   use GenServer
 
   def init(_init_hits) do
-    :ets.new(:recipe_hits, [:named_table, read_concurrency: true])
+    :ets.new(:recipe_hits, [:named_table, write_concurrency: true, read_concurrency: true])
     {:ok, %{}}
   end
 
@@ -39,16 +39,7 @@ defmodule Cookpod.Hits do
   end
 
   defp increment_hits(recipe_id) do
-    exists = length(:ets.lookup(:recipe_hits, recipe_id))
-
-    if exists > 0 do
-      [{_, current_hits}] = :ets.lookup(:recipe_hits, recipe_id)
-      :ets.insert(:recipe_hits, {recipe_id, current_hits + 1})
-    else
-      :ets.insert(:recipe_hits, {recipe_id, 1})
-      [{_, current_hits}] = :ets.lookup(:recipe_hits, recipe_id)
-      IO.puts(current_hits)
-    end
+    :ets.update_counter(:recipe_hits, recipe_id, {2, 1}, {recipe_id, 0})
   end
 
   def tab2map(table) do
