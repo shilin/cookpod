@@ -8,7 +8,8 @@ defmodule CookpodWeb.RecipeController do
 
   def index(conn, _params) do
     recipes = Recipes.list_recipes()
-    render(conn, "index.html", recipes: recipes, hits: Hits.state())
+    # read from ETS directly and concurrently!
+    render(conn, "index.html", recipes: recipes, hits: Hits.tab2map(:recipe_hits))
   end
 
   def new(conn, _params) do
